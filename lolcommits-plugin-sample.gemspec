@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'lolcommits/plugin/sample/version'
+require 'lolcommits/sample'
 
 Gem::Specification.new do |spec|
   spec.name          = "lolcommits-plugin-sample"
-  spec.version       = Lolcommits::Plugin::Sample::VERSION
+  spec.version       = Lolcommits::Sample::VERSION
   spec.authors       = ["Matthew Hutchinson"]
   spec.email         = ["matt@hiddenloop.com"]
 
@@ -30,6 +30,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.required_ruby_version = ">= 2.0.0"
+
+  # spec.add_runtime_dependency "lolcommits"
 
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"
