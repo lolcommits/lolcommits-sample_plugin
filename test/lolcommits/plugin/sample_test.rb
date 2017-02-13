@@ -2,6 +2,8 @@ require 'test_helper'
 
 describe Lolcommits::Plugin::Sample do
 
+  include Lolcommits::TestHelpers::GitRepo
+
   def plugin_name
     'plugin-sample'
   end
@@ -39,17 +41,24 @@ describe Lolcommits::Plugin::Sample do
     end
 
     describe 'initalizing' do
-      it 'should assign runner and default enabled option' do
+      it 'should assign runner and an enabled option' do
         plugin.runner.must_equal runner
         plugin.options.must_equal ['enabled']
       end
     end
 
     describe '#run_postcapture' do
+
+      before { commit_repo_with_message }
+
       it 'should output a message to stdout' do
-        Proc.new { plugin.run_postcapture }.must_output
-          "✨  wow! #{runner.sha} is your best looking commit yet! 😘  💻\n"
+        in_repo do
+          Proc.new { plugin.run_postcapture }.
+            must_output "✨  wow! #{last_commit.sha[0..10]} is your best looking commit yet! 😘  💻\n"
+        end
       end
+
+      after { teardown_repo }
     end
 
     describe '#enabled?' do
@@ -97,4 +106,3 @@ describe Lolcommits::Plugin::Sample do
     end
   end
 end
-
