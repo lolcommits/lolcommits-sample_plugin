@@ -30,13 +30,13 @@ installing and setting up lolcommits, run the following to install this plugin:
 
 ## Usage
 
-After installing, configure this plugin with:
+After installing, configure this sample plugin with:
 
     $ lolcommits --config
-    or
+    # or
     $ lolcommits --config -p plugin-sample
 
-Set enabled as 'true', and every lolcommit capture now comes with a short and
+Set enabled as `true`, and every lolcommit capture now comes with a short and
 snappy message!
 
 ## Developing your own plugin
