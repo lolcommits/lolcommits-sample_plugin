@@ -1,4 +1,4 @@
-# lolcommits sample plugin
+# Lolcommits Sample Plugin
 
 lolcommits takes a snapshot with your webcam every time you git commit code, and
 archives a lolcat style image with it. Git blame has never been so much fun!
