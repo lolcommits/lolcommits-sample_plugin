@@ -69,7 +69,7 @@ GitHub.
 
 When submitting pull requests, please remember to add tests covering the new
 behaviour, and ensure all tests are passing on [Travis
-CI](https://travis-ci.org/matthutchinson/lifx_dash). Read the [contributing
+CI](https://travis-ci.org/lolcommits/lolcommits-plugin-sample). Read the [contributing
 guidelines](https://github.com/lolcommits/lolcommits-plugin-sample/CONTRIBUTING.md)
 for more details.
 
@@ -102,7 +102,7 @@ The gem is available as open source under the terms of
 
 ## Links
 
-* [Travis CI](http://travis-ci.org/matthutchinson/lifx_dash)
+* [Travis CI](https://travis-ci.org/lolcommits/lolcommits-plugin-sample)
 * [Test Coverage](https://coveralls.io/r/matthutchinson/lifx_dash?branch=master)
 * [Code Climate](https://codeclimate.com/github/matthutchinson/lifx_dash)
 * [RDoc](http://rdoc.info/projects/matthutchinson/lifx_dash)
