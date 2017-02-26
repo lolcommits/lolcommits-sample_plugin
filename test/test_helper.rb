@@ -5,13 +5,24 @@ require 'git'
 require 'lolcommits/runner'
 require 'lolcommits/vcs_info'
 require 'lolcommits/backends/git_info'
+
+# lolcommit test helpers
 require 'lolcommits/test_helpers/git_repo'
+require 'lolcommits/test_helpers/fake_io'
+
+if ENV['COVERAGE']
+  if ENV['TRAVIS']
+    require 'coveralls'
+    Coveralls.wear!
+  else
+    require 'simplecov'
+  end
+end
 
 # plugin gem test libs
 require 'lolcommits/sample'
 require 'lolcommits/plugin/sample'
 require 'minitest/autorun'
-require 'helpers/fake_io'
 
 # swallow all debug output during test runs
 def debug(msg); end

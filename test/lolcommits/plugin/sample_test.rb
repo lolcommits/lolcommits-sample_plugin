@@ -3,6 +3,7 @@ require 'test_helper'
 describe Lolcommits::Plugin::Sample do
 
   include Lolcommits::TestHelpers::GitRepo
+  include Lolcommits::TestHelpers::FakeIO
 
   def plugin_name
     'plugin-sample'
@@ -80,7 +81,7 @@ describe Lolcommits::Plugin::Sample do
       it 'should allow plugin options to be configured' do
         configured_plugin_options = {}
 
-        output = FakeIO.capture(inputs: %w(true)) do
+        output = fake_io_capture(inputs: %w(true)) do
           configured_plugin_options = plugin.configure_options!
         end
 

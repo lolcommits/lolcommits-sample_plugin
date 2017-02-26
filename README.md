@@ -3,16 +3,19 @@
 lolcommits takes a snapshot with your webcam every time you git commit code, and
 archives a lolcat style image with it. Git blame has never been so much fun!
 
-Lolcommit plugins are automatically loaded before the capturing process starts
-and the flexible class design allows developers to write their own code to
-execute before or after snapshots are taken.
+Lolcommit plugins are automatically loaded before the capturing process starts.
+The flexible class design allows developers to write their own code to execute
+before or after snapshots are taken.
 
-This gem serves as a basic working example (using the post-capture hook). It
-simply prints a short message to the screen after every commit. It has good test
-coverage, documentation and is a great starting point for anyone building their
-own plugin.
+This gem showcases an example plugin (using the post-capture hook). It simply
+prints a short message to the screen after every lolcommit. Something like this;
 
-See below for more information on how to get started.
+
+    ✨  wow! 9e6303c is your best looking commit yet! 😘  💻
+
+You can use this repo to jump-start building your own plugin. It has good tests,
+docs and working hooks to useful services (Travis, CodeClimate etc.) See below
+for more information on how to get started.
 
 ## Requirements
 
@@ -23,21 +26,21 @@ See below for more information on how to get started.
 
 ## Installation
 
-Follow the main lolcommits README for installation and requirements. Then after
-installing and setting up lolcommits, run the following to install this plugin:
+Follow the [install steps](https://github.com/mroth/lolcommits#requirements) for
+lolcommits first. Then run the following to install this plugin:
 
     $ gem install lolcommits-plugin-sample
 
 ## Usage
 
-After installing, configure this sample plugin with:
+After installing, configure and enabled this plugin with:
 
     $ lolcommits --config
     # or
     $ lolcommits --config -p plugin-sample
 
-Set enabled as `true`, and every lolcommit capture now comes with a short and
-snappy message!
+Set enabled to `true`. Every lolcommit now comes with it's own short, snappy
+emoji filled message!
 
 ## Developing your own plugin
 
@@ -48,6 +51,21 @@ Run tests for this gem with:
 
     $ rake test
 
+Minitest is used for testing. The main lolcommits gem provides a helper module
+to easily work with IO and manage git repos and commits for testing.
+
+To use these in your tests:
+
+    # add this to your test_helper
+    require 'lolcommits/test_helpers/git_repo'
+    require 'lolcommits/test_helpers/fake_io'
+
+    # and include this module in your test
+    include Lolcommits::TestHelpers::GitRepo
+    include Lolcommits::TestHelpers::FakeIO
+
+See the existing tests and module code for what methods are available.
+
 ## Docs
 
 Generate docs for this gem with:
@@ -56,10 +74,10 @@ Generate docs for this gem with:
 
 ## History
 
-Until recently, our plugins lived inside the main lolcommits gem. We are
-currently in the process of upgrading them all to use the newer gem based plugin
-manager. This means each plugin can live in its own gem. Rubygem versioning can
-then take care of managing compatibility with main gem.
+Until recently, all plugins lived inside the main lolcommits gem. We are in the
+process of updating them to exist as inidividual gems, loaded with the new gem
+plugin manager. Rubygems versioning can then take care of managing compatibility
+with main gem.
 
 ## Contributing
 
@@ -67,7 +85,7 @@ Bug [reports](https://github.com/lolcommits/lolcommits-plugin-sample/issues) and
 requests](https://github.com/lolcommits/lolcommits-plugin-sample/pulls) are welcome on
 GitHub.
 
-When submitting pull requests, please remember to add tests covering the new
+When submitting pull requests, please remember to add tests covering any new
 behaviour, and ensure all tests are passing on [Travis
 CI](https://travis-ci.org/lolcommits/lolcommits-plugin-sample). Read the [contributing
 guidelines](https://github.com/lolcommits/lolcommits-plugin-sample/CONTRIBUTING.md)
@@ -92,8 +110,7 @@ experiment with the gem code.
 
 If you think something is broken or missing, do raise a new
 [issue](https://github.com/lolcommits/lolcommits-plugin-sample/issues). Please
-remember to take a moment and check it hasn't already been raised (and possibly
-closed).
+take a moment to check it hasn't been raised in the past (and possibly closed).
 
 ## License
 
@@ -103,10 +120,10 @@ The gem is available as open source under the terms of
 ## Links
 
 * [Travis CI](https://travis-ci.org/lolcommits/lolcommits-plugin-sample)
-* [Test Coverage](https://coveralls.io/r/matthutchinson/lifx_dash?branch=master)
-* [Code Climate](https://codeclimate.com/github/matthutchinson/lifx_dash)
-* [RDoc](http://rdoc.info/projects/matthutchinson/lifx_dash)
-* [Issues](http://github.com/matthutchinson/lifx_dash/issues)
-* [Report a bug](http://github.com/matthutchinson/lifx_dash/issues/new)
-* [Gem](http://rubygems.org/gems/lifx_dash)
-* [GitHub](http://github.com/matthutchinson/lifx_dash)
+* [Test Coverage](https://coveralls.io/r/lolcommits/lolcommits-plugin-sample?branch=master)
+* [Code Climate](https://codeclimate.com/github/lolcommits/lolcommits-plugin-sample)
+* [RDoc](http://rdoc.info/projects/lolcommits/lolcommits-plugin-sample)
+* [Issues](http://github.com/lolcommits/lolcommits-plugin-sample/issues)
+* [Report a bug](http://github.com/lolcommits/lolcommits-plugin-sample/issues/new)
+* [Gem](http://rubygems.org/gems/lolcommits-plugin-sample)
+* [GitHub](https://github.com/lolcommits/lolcommits-plugin-sample)
