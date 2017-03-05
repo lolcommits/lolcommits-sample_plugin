@@ -107,13 +107,13 @@ GitHub.
 When submitting pull requests, please remember to add tests covering any new
 behaviour, and ensure all tests are passing on [Travis
 CI](https://travis-ci.org/lolcommits/lolcommits-plugin-sample). Read the [contributing
-guidelines](https://github.com/lolcommits/lolcommits-plugin-sample/CONTRIBUTING.md)
+guidelines](https://github.com/lolcommits/lolcommits-plugin-sample/blob/master/CONTRIBUTING.md)
 for more details.
 
 This project is intended to be a safe, welcoming space for collaboration, and
 contributors are expected to adhere to the [Contributor
 Covenant](http://contributor-covenant.org) code of conduct. See
-[here](https://github.com/lolcommits/lolcommits-plugin-sample/CODE_OF_CONDUCT.md)
+[here](https://github.com/lolcommits/lolcommits-plugin-sample/blob/master/CODE_OF_CONDUCT.md)
 for more details.
 
 ## License
