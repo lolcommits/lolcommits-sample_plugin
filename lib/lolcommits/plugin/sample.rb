@@ -115,8 +115,8 @@ module Lolcommits
       # Override this method to define your own configuration checks and
       # messaging.
       #
-      # It is good practice to call this method (and return early) in any pre or
-      # post capture hooks.
+      # This method must return true for the plugin to execute. It is checked by
+      # the lolcommits runner prior to running a pre or post capture hook.
       #
       # @return [Boolean] true/false indicating if plugin is correct configured
       #
