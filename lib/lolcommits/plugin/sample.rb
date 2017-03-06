@@ -1,4 +1,5 @@
 require 'lolcommits/plugin/base'
+require 'lolcommits/sample'
 
 module Lolcommits
   module Plugin
