@@ -94,9 +94,8 @@ describe Lolcommits::Plugin::Sample do
       end
 
       describe '#valid_configuration?' do
-        it 'should be false and show help for an empty configuration' do
-          Proc.new { plugin.valid_configuration?.must_equal(false) }.
-            must_output "Missing #{plugin_name} config - configure with: lolcommits --config -p #{plugin_name}\n"
+        it 'should be false without config set' do
+          plugin.valid_configuration?.must_equal(false)
         end
 
         it 'should be true for a valid configuration' do
