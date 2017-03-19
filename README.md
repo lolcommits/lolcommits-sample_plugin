@@ -1,4 +1,4 @@
-# Lolcommits Sample Plugin
+# Lolcommits Plugin Sample
 
 [![Gem Version](https://img.shields.io/gem/v/lolcommits-plugin-sample.svg?style=flat)](http://rubygems.org/gems/lolcommits-plugin-sample)
 [![Travis Build Status](https://travis-ci.org/lolcommits/lolcommits-plugin-sample.svg?branch=master)](https://travis-ci.org/lolcommits/lolcommits-plugin-sample)
