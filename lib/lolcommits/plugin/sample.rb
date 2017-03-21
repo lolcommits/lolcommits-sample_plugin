@@ -20,15 +20,16 @@ module Lolcommits
         'plugin-sample'
       end
 
-      ## Returns the order this plugin should run at during the capture process.
+      # Returns position(s) of when this plugin should run during the capture
+      # process.
       #
-      # Defines when your plugin will initalized and executed. This must be
-      # defined, if the method returns nil the plugin will never run.
+      # Defines when your plugin will execute in the capture process. This must
+      # be defined, if the method returns nil, or [] the plugin will never run.
       #
-      # @return [Symbol] the order position (:precapture or :postcapture)
+      # @return [Array] the position(s) (:precapture and/or :postcapture)
       #
       def self.runner_order
-        :postcapture
+        [:precapture, :postcapture]
       end
 
       ##
@@ -47,12 +48,16 @@ module Lolcommits
       end
 
       ##
+      #
       # Pre-capture hook, runs before lolcommits captures a snapshot.
       #
       # Override this method to execute plugin code before the lolcommit
       # snapshot is captured.
       #
+      # Prints a short (emoji themed) message to STDOUT
+      #
       def run_precapture
+        puts "✨  Say cheese 😁 !"
       end
 
       ##

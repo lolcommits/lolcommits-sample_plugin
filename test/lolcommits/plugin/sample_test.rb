@@ -18,7 +18,7 @@ describe Lolcommits::Plugin::Sample do
   end
 
   it 'should run on post capturing' do
-    ::Lolcommits::Plugin::Sample.runner_order.must_equal :postcapture
+    ::Lolcommits::Plugin::Sample.runner_order.must_equal [:precapture, :postcapture]
   end
 
   describe 'with a runner' do
@@ -46,6 +46,20 @@ describe Lolcommits::Plugin::Sample do
         plugin.runner.must_equal runner
         plugin.options.must_equal ['enabled']
       end
+    end
+
+    describe '#run_precapture' do
+
+      before { commit_repo_with_message }
+
+      it 'should output a message to stdout' do
+        in_repo do
+          Proc.new { plugin.run_precapture }.
+            must_output "✨  Say cheese 😁 !\n"
+        end
+      end
+
+      after { teardown_repo }
     end
 
     describe '#run_postcapture' do

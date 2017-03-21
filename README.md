@@ -14,9 +14,11 @@ lolcommit plugins are automatically loaded before the capturing process starts.
 The flexible class design allows developers to add features, running code before
 or after snapshots are taken.
 
-This gem showcases an example plugin (using the post-capture hook). It prints a
-short message to the screen after every lolcommit. Something like this;
+This gem showcases an example plugin. It prints a short message to the screen
+before and after every lolcommit. Something like this;
 
+    ✨  Say cheese 😁 !
+    *** Preserving this moment in history.
     ✨  wow! 9e6303c is your best looking commit yet! 😘  💻
 
 Use this repo to jump-start development on your own plugin. It has good tests,
