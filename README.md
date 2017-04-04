@@ -10,9 +10,9 @@
 every time you git commit code, and archives a lolcat style image with it. Git
 blame has never been so much fun!
 
-lolcommit plugins are automatically loaded before the capturing process starts.
-The flexible class design allows developers to add features, running code before
-or after snapshots are taken.
+Lolcommit plugins are automatically loaded before the capturing process starts.
+The flexible class design allows developers to add features by running code
+before or after snapshots are taken.
 
 This gem showcases an example plugin. It prints a short message to the screen
 before and after every lolcommit. Something like this;
@@ -27,14 +27,164 @@ below for more information on how to get started.
 
 ## Developing your own plugin
 
-TBA.
+First, there are some things your gem *must* do to be loaded and executed
+correctly. At the very least:
+
+* Name your gem with the `lolcommits-` prefix.
+* Require `lolcommits` in your gem spec as a runtime dependency (optionally
+  specify a minimum version number too).
+* Include a class that inherits from `Lolcommits::Plugin::Base` (this will be
+  the entry point to your plugin from the lolcommits gem).
+* This main plugin class must meet the requirements explained below.
+
+### Your Plugin Class
+
+You plugin class must have a namespace and path that matches your gem name, for
+example:
+
+    # a gem named: lolcommits-super-awesome
+    # should have a plugin class inheriting from Base like so:
+    class Lolcommits::Super::Awesome < Lolcommits::Plugin::Base
+      ...
+    end
+    # at lib/lolcommits/super/awesome.rb
+
+    # or gem named: lolcommits-zapier
+    # should have a plugin class
+    class Lolcommits::Zapier < Lolcommits::Plugin::Base
+      ...
+    end
+    # at lib/lolcommits/zapier.rb
+
+You **should** override the following methods in this class:
+
+* `def self.name` - identifies the plugin to lolcommits and users, keep things
+  simple and choose a name that matches your gem name.
+* `def self.runner_order` - return the hooks this plugin should run at during
+  the capture process (`:precapture`, `:postcapture` or both).
+* `def run_precapture` or `def run_postcapture` - override with your plugin's
+  behaviour.
+
+### Plugin configuration
+
+The `Base` class initializer defines an `@options` instance var, with an array
+of setting names that the user can configure. By default, the only option is
+`enabled` and plugins *must* be configured as `enabled = true` to run.
+
+A plugin can be configured by the lolcommits gem with;
+
+    lolcommits --config
+    # or
+    lolcommits --config -p plugin-name
+
+Use the `configuration` method in your plugin class to read these options.
+Plugin methods you may want to override with custom configuration code include:
+
+* `def enabled?` - usually checks `configuration['enabled']` to determine if the
+  plugin should run.
+* `def configure_options!` - prompts the user for configuration (based on the
+  `@options`) returns a hash that will be persisted.
+* `def configured?` - checks the persisted config hash is present.
+* `def valid_configuration?`- checks the persisted config hash has valid data.
+
+If your plugin requires no configuration, you could override the `enabled?`
+method to always return `true`. Users could disable your plugin by uninstalling
+the gem.
+
+By default a plugin will only run its pre or post capture hook if:
+
+* `valid_configuration?` returns true
+* `enabled?` returns true
+
+For more help, check out [the
+documentation](http://www.rubydoc.info/github/lolcommits/lolcommits-plugin-sample/Lolcommits/Plugin/Sample)
+for this plugin, or take a look at [other
+  lolcommit_plugins](https://github.com/lolcommits) in the wild.
+
+### The Lolcommits 'runner'
+
+The only required argument for your plugin class initializer is a
+`Lolcommits::Runner` instance. By default, the base plugin initializer will set
+this in the `runner` instance var.
+
+Use these runner methods to access the commit, repo and configuration:
+
+* `runner.message` - the git commit message.
+* `runner.sha` - the git sha for the current commit.
+* `runner.vcs_info` - a reference to the
+  [Lolcommits::VCSInfo](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/vcs_info.rb)
+  instance.
+* `runner.config` - a reference to the
+  [Lolcommits::Configuration](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/configuration.rb)
+  instance.
+
+After the capturing process has completed, (i.e. in the `run_postcapture`
+hook) these methods will reveal the captured snapshot file.
+
+* `runner.snapshot_loc` - the raw image file.
+* `runner.main_image` - the processed image file, resized, with text overlay
+  applied (or any other effects from other plugins).
+
+Take a look at the
+[Lolcommits::Runner](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/runner.rb)
+for more details.
+
+### Testing your plugin
+
+It's a good idea to include tests with your gem. To make this easier for you,
+the main lolcommits gem provides helpers to work with IO and Git repos in
+test.
+
+    # add one or both of these to your plugin's test_helper file
+    require 'lolcommits/test_helpers/git_repo'
+    require 'lolcommits/test_helpers/fake_io'
+
+    # and include either (or both) modules in your test
+    include Lolcommits::TestHelpers::GitRepo
+    include Lolcommits::TestHelpers::FakeIO
+
+Use the following methods to manage a test repo:
+
+    setup_repo                 # create the test repo
+    commit_repo_with_message   # perform a git commit in the test repo
+    last_commit                # git commit info for the last commit in the test repo
+    teardown_repo              # destroy the test repo
+    in_repo(&block)            # run lolcommits within the test repo
+
+For submitting and capturing IO use the `fake_io_capture` method. E.g. to
+capture the output of the `configure_options` method, while sending the string
+input 'true' (followed by a carriage return) when prompted on STDIN:
+
+    output = fake_io_capture(inputs: %w(true)) do
+      configured_plugin_options = plugin.configure_options!
+    end
+
+For more examples take a look at the [tests in this
+repo](https://github.com/lolcommits/lolcommits-plugin-sample/blob/dev_guide/test/lolcommits/plugin/sample_test.rb)
+(MiniTest).
+
+### General advice
+
+Use this gem as a starting point, renaming files, classes and references. Or
+build a new plugin gem from scratch with:
+
+    bundle gem lolcommits-my-plugin
+
+For more examples, take a look at other published [lolcommit
+plugins](https://github.com/lolcommits).
+
+If you feel something is missing (or out of date) in this short guide. Please
+create a new
+[issue](https://github.com/lolcommits/lolcommits-plugin-sample/issues).
 
 ## History
 
 Until recently, all plugins lived inside the main lolcommits gem. We are in the
-process of extracting them to inidividual gems, loaded with the new plugin
-manager. Rubygems versioning can then take care of managing dependencies and
+process of extracting them to individual gems, loaded with the new plugin
+manager. Ruby gem versioning will take care of managing dependencies and
 compatibility with the main gem.
+
+---
 
 ## Requirements
 
@@ -52,41 +202,25 @@ lolcommits first. Then run the following:
 
 Next configure and enable this plugin with:
 
-    $ lolcommits --config
-    # or
     $ lolcommits --config -p plugin-sample
     # set enabled to `true`
 
-Thats it! Every lolcommit now comes with it's own short (emoji themed) message!
+That's it! Every lolcommit now comes with it's own short (emoji themed) message!
 
 ## Development
 
-After checking out the repo, run `bin/setup`, this will install dependencies,
-and generate docs. Then, run `bundle exec rake` to run all tests (and generate a
-coverage report).
+Check out this repo and run `bin/setup`, this will install dependencies and
+generate docs. Run `bundle exec rake` to run all tests and generate a coverage
+report.
 
 You can also run `bin/console` for an interactive prompt that will allow you to
 experiment with the gem code.
 
 ## Tests
 
-Run tests with:
+MiniTest is used for testing. Run the test suite with:
 
     $ rake test
-
-Minitest is used for testing. The main lolcommits gem provides helper modules to
-work with IO and Git repos in test. Use them in your test setup code, to fake
-user input or capture STDOUT.
-
-    # add this to your test_helper
-    require 'lolcommits/test_helpers/git_repo'
-    require 'lolcommits/test_helpers/fake_io'
-
-    # and include this module in your test
-    include Lolcommits::TestHelpers::GitRepo
-    include Lolcommits::TestHelpers::FakeIO
-
-See the existing tests and module code for the helper methods available.
 
 ## Docs
 
@@ -96,9 +230,9 @@ Generate docs for this gem with:
 
 ## Troubles?
 
-If you think something is broken or missing, do raise a new
-[issue](https://github.com/lolcommits/lolcommits-plugin-sample/issues). Please
-take a moment to check it hasn't been raised in the past (and possibly closed).
+If you think something is broken or missing, please raise a new
+[issue](https://github.com/lolcommits/lolcommits-plugin-sample/issues). Take
+a moment to check it hasn't been raised in the past (and possibly closed).
 
 ## Contributing
 
@@ -106,9 +240,10 @@ Bug [reports](https://github.com/lolcommits/lolcommits-plugin-sample/issues) and
 requests](https://github.com/lolcommits/lolcommits-plugin-sample/pulls) are welcome on
 GitHub.
 
-When submitting pull requests, please remember to add tests covering any new
-behaviour, and ensure all tests are passing on [Travis
-CI](https://travis-ci.org/lolcommits/lolcommits-plugin-sample). Read the [contributing
+When submitting pull requests, remember to add tests covering any new behaviour,
+and ensure all tests are passing on [Travis
+CI](https://travis-ci.org/lolcommits/lolcommits-plugin-sample). Read the
+[contributing
 guidelines](https://github.com/lolcommits/lolcommits-plugin-sample/blob/master/CONTRIBUTING.md)
 for more details.
 
