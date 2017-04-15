@@ -9,10 +9,6 @@ describe Lolcommits::Plugin::Sample do
     'plugin-sample'
   end
 
-  it 'should have a version number' do
-    ::Lolcommits::Plugin::Sample::VERSION.wont_be_nil
-  end
-
   it 'should have a name' do
     ::Lolcommits::Plugin::Sample.name.must_equal plugin_name
   end

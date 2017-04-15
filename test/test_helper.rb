@@ -20,7 +20,6 @@ if ENV['COVERAGE']
 end
 
 # plugin gem test libs
-require 'lolcommits/sample'
 require 'lolcommits/plugin/sample'
 require 'minitest/autorun'
 

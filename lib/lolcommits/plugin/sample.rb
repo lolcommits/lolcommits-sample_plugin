@@ -1,12 +1,8 @@
 require 'lolcommits/plugin/base'
-require 'lolcommits/sample'
 
 module Lolcommits
   module Plugin
     class Sample < Base
-
-      # include the gem version constant
-      include Lolcommits::Sample
 
       ##
       # Returns the name of the plugin.

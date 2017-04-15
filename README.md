@@ -39,22 +39,23 @@ correctly. At the very least:
 
 ### Your Plugin Class
 
-You plugin class must have a namespace and path that matches your gem name, for
-example:
+You plugin class must have a namespace and path that matches your gem name and
+be in the `LOAD_PATH` (required) with the gem for example:
 
-    # a gem named: lolcommits-super-awesome
+    # a gem named: lolcommits-zapier
     # should have a plugin class inheriting from Base like so:
+    class Lolcommits::Plugin::Zapier < Lolcommits::Plugin::Base
+      ...
+    end
+    # at lib/lolcommits/plugin/zapier.rb
+    # required in a file at lib/lolcommits/zapier.rb
+
+    # or a gem named: lolcommits-super-awesome
+    # should have a plugin class
     class Lolcommits::Super::Awesome < Lolcommits::Plugin::Base
       ...
     end
     # at lib/lolcommits/super/awesome.rb
-
-    # or gem named: lolcommits-zapier
-    # should have a plugin class
-    class Lolcommits::Zapier < Lolcommits::Plugin::Base
-      ...
-    end
-    # at lib/lolcommits/zapier.rb
 
 You **should** override the following methods in this class:
 
