@@ -31,11 +31,10 @@ First, there are some things your gem *must* do to be loaded and executed
 correctly. At the very least:
 
 * Name your gem with the `lolcommits-` prefix.
-* Require `lolcommits` in your gem spec as a runtime dependency (optionally
-  specify a minimum version number too).
 * Include a class that inherits from `Lolcommits::Plugin::Base` (this will be
   the entry point to your plugin from the lolcommits gem).
 * This main plugin class must meet the requirements explained below.
+* Require `lolcommits` in your gem spec as a development dependency.
 
 ### Your Plugin Class
 
