@@ -19,13 +19,16 @@ module Lolcommits
       # Returns position(s) of when this plugin should run during the capture
       # process.
       #
-      # Defines when your plugin will execute in the capture process. This must
+      # Defines when the plugin will execute in the capture process. This must
       # be defined, if the method returns nil, or [] the plugin will never run.
+      # Three hook positions exist, your plugin code can execute in one or more
+      # of these.
       #
-      # @return [Array] the position(s) (:precapture and/or :postcapture)
+      # @return [Array] the position(s) (:precapture, :postcapture,
+      # :captureready)
       #
       def self.runner_order
-        [:precapture, :postcapture]
+        [:precapture, :captureready]
       end
 
       ##
@@ -58,7 +61,7 @@ module Lolcommits
 
       ##
       #
-      # Post-capture hook, runs after lolcommits captures a snapshot.
+      # Capture ready hook, runs after lolcommits captures a snapshot.
       #
       # Override this method to execute plugin code after the lolcommit snapshot
       # is captured.
@@ -66,7 +69,7 @@ module Lolcommits
       # Prints a short (emoji themed) message to STDOUT with the current commit
       # sha.
       #
-      def run_postcapture
+      def run_captureready
         puts "✨  wow! #{self.runner.sha} is your best looking commit yet! 😘  💻"
       end
 

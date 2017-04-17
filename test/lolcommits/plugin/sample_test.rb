@@ -13,8 +13,8 @@ describe Lolcommits::Plugin::Sample do
     ::Lolcommits::Plugin::Sample.name.must_equal plugin_name
   end
 
-  it 'should run on post capturing' do
-    ::Lolcommits::Plugin::Sample.runner_order.must_equal [:precapture, :postcapture]
+  it 'should run on precapture and captureready' do
+    ::Lolcommits::Plugin::Sample.runner_order.must_equal [:precapture, :captureready]
   end
 
   describe 'with a runner' do
@@ -58,13 +58,13 @@ describe Lolcommits::Plugin::Sample do
       after { teardown_repo }
     end
 
-    describe '#run_postcapture' do
+    describe '#run_captureready' do
 
       before { commit_repo_with_message }
 
       it 'should output a message to stdout' do
         in_repo do
-          Proc.new { plugin.run_postcapture }.
+          Proc.new { plugin.run_captureready }.
             must_output "✨  wow! #{last_commit.sha[0..10]} is your best looking commit yet! 😘  💻\n"
         end
       end
