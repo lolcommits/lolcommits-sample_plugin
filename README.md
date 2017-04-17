@@ -61,9 +61,18 @@ You **should** override the following methods in this class:
 * `def self.name` - identifies the plugin to lolcommits and users, keep things
   simple and choose a name that matches your gem name.
 * `def self.runner_order` - return the hooks this plugin should run at during
-  the capture process (`:precapture`, `:postcapture` or both).
-* `def run_precapture` or `def run_postcapture` - override with your plugin's
-  behaviour.
+  the capture process (`:precapture`, `:postcapture` and/or `:captureready`).
+* `def run_precapture`, `def run_postcapture` and/or `def run_captureready` -
+  override with your plugin's behaviour.
+
+Three hooks points are available during the lolcommits capture process.
+
+* `:precapture` - called before the camera starts capturing, at this point you
+  could alter the commit message/sha text.
+* `:postcapture` - called immediately after the camera snaps the raw image (or
+  video for gif captures) use this hook to alter the image.
+  `:captureready` - called after all `:postcapture` plugins have ran, at this
+  point the capture should be ready for exporting or sharing.
 
 ### Plugin configuration
 
@@ -91,7 +100,7 @@ If your plugin requires no configuration, you could override the `enabled?`
 method to always return `true`. Users could disable your plugin by uninstalling
 the gem.
 
-By default a plugin will only run its pre or post capture hook if:
+By default a plugin will only run it's capture hooks if:
 
 * `valid_configuration?` returns true
 * `enabled?` returns true
@@ -99,7 +108,7 @@ By default a plugin will only run its pre or post capture hook if:
 For more help, check out [the
 documentation](http://www.rubydoc.info/github/lolcommits/lolcommits-plugin-sample/Lolcommits/Plugin/Sample)
 for this plugin, or take a look at [other
-  lolcommit_plugins](https://github.com/lolcommits) in the wild.
+  lolcommit_plugins](https://github.com/search?q=topic%3Alolcommits-plugin+org%3Alolcommits&type=Repositories) in the wild.
 
 ### The Lolcommits 'runner'
 
@@ -118,8 +127,8 @@ Use these runner methods to access the commit, repo and configuration:
   [Lolcommits::Configuration](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/configuration.rb)
   instance.
 
-After the capturing process has completed, (i.e. in the `run_postcapture`
-hook) these methods will reveal the captured snapshot file.
+After the capturing process has completed, (i.e. in the `run_postcapture` or
+`run_captureready` hooks) these methods will reveal the captured snapshot file.
 
 * `runner.snapshot_loc` - the raw image file.
 * `runner.main_image` - the processed image file, resized, with text overlay
