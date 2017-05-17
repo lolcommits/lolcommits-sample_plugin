@@ -4,13 +4,17 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "lolcommits-plugin-sample"
-  spec.version       = "0.1.4"
+  spec.version       = "0.1.5"
   spec.authors       = ["Matthew Hutchinson"]
   spec.email         = ["matt@hiddenloop.com"]
 
   spec.summary       = %q{Example gem for lolcommits plugin development}
-  spec.description   = %q{Use this gem as a guide or template to get started}
-  spec.homepage      = "https://lolcommits.github.io"
+  spec.description   = <<-EOF
+  Use this gem as a guide or template to get started with lolcommits plugin
+  development.
+  EOF
+
+  spec.homepage      = "https://github.com/lolcommits/lolcommits-plugin-sample"
   spec.license       = "LGPL-3"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
