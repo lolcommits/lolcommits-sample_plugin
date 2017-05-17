@@ -14,11 +14,12 @@ Lolcommit plugins are automatically loaded before the capturing process starts.
 The flexible class design allows developers to add features by running code
 before or after snapshots are taken.
 
-This gem showcases an example plugin. It prints a short message to the screen
+This gem showcases an example plugin. It prints short messages to the screen
 before and after every lolcommit. Something like this;
 
     ✨  Say cheese 😁 !
     *** Preserving this moment in history.
+    📸  Snap
     ✨  wow! 9e6303c is your best looking commit yet! 😘  💻
 
 Use this repo to jump-start development on your own plugin. It has good tests,
@@ -61,17 +62,18 @@ You **should** override the following methods in this class:
 * `def self.name` - identifies the plugin to lolcommits and users, keep things
   simple and choose a name that matches your gem name.
 * `def self.runner_order` - return the hooks this plugin should run at during
-  the capture process (`:precapture`, `:postcapture` and/or `:captureready`).
-* `def run_precapture`, `def run_postcapture` and/or `def run_captureready` -
+  the capture process (`:pre_capture`, `:post_capture` and/or `:capture_ready`).
+* `def run_pre_capture`, `def run_post_capture` and/or `def run_capture_ready` -
   override with your plugin's behaviour.
 
 Three hooks points are available during the lolcommits capture process.
 
-* `:precapture` - called before the camera starts capturing, at this point you
+* `:pre_capture` - called before the camera starts capturing, at this point you
   could alter the commit message/sha text.
-* `:postcapture` - called immediately after the camera snaps the raw image (or
-  video for gif captures) use this hook to alter the image.
-  `:captureready` - called after all `:postcapture` plugins have ran, at this
+* `:post_capture` - called immediately after the camera snaps the raw image (or
+  video for gif captures) use this hook to alter the image, other plugins may
+  hook here to modify the image too.
+  `:capture_ready` - called after all `:post_capture` plugins have ran, at this
   point the capture should be ready for exporting or sharing.
 
 ### Plugin configuration
@@ -127,8 +129,8 @@ Use these runner methods to access the commit, repo and configuration:
   [Lolcommits::Configuration](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/configuration.rb)
   instance.
 
-After the capturing process has completed, (i.e. in the `run_postcapture` or
-`run_captureready` hooks) these methods will reveal the captured snapshot file.
+After the capturing process has completed, (i.e. in the `run_post_capture` or
+`run_capture_ready` hooks) these methods will reveal the captured snapshot file.
 
 * `runner.snapshot_loc` - the raw image file.
 * `runner.main_image` - the processed image file, resized, with text overlay
