@@ -15,7 +15,7 @@ describe Lolcommits::Plugin::Sample do
 
   it 'should run on pre_capture and capture_ready' do
     ::Lolcommits::Plugin::Sample.runner_order.must_equal [
-      :pre_capture, :capture_ready
+      :pre_capture, :post_capture, :capture_ready
     ]
   end
 
