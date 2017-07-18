@@ -136,6 +136,11 @@ After the capturing process has completed, (i.e. in the `run_post_capture` or
 * `runner.main_image` - the processed image file, resized, with text overlay
   applied (or any other effects from other plugins).
 
+During plugin configuration, your plugin class will be initialized with the
+optional `config` argument (and no runner). This allows you to read the existing
+saved options during configuration. E.g. to show the existing options back to
+the user.
+
 Take a look at the
 [Lolcommits::Runner](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/runner.rb)
 for more details.

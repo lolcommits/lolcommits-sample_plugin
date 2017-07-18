@@ -32,17 +32,20 @@ module Lolcommits
       end
 
       ##
+      #
       # Plugin initializer
       #
       # @param runner [Lolcommits::Runner] a instance of a lolcommits runner
+      # @param config [Lolcommits::Configuration] (optional)
       #
-      # The default superclass method sets the @runner instance var and default
-      # plugin option keys e.g. @options = ['enabled']
+      # The default superclass method sets @runner and @config instance vars and
+      # the default plugin option key `@options = ['enabled']`. `@runner.config`
+      # is used if no `config` parameter is passed.
       #
       # Override this method to change the default options, or assign any useful
       # variables necessary for the plugin to run.
       #
-      def initialize(runner)
+      def initialize(runner: nil, config: nil)
         super
       end
 

@@ -28,7 +28,7 @@ describe Lolcommits::Plugin::Sample do
     end
 
     def plugin
-      @plugin ||= Lolcommits::Plugin::Sample.new(runner)
+      @plugin ||= Lolcommits::Plugin::Sample.new(runner: runner)
     end
 
     def valid_enabled_config
@@ -80,7 +80,7 @@ describe Lolcommits::Plugin::Sample do
       end
 
       it 'should true when configured' do
-        plugin.runner.config = valid_enabled_config
+        plugin.config = valid_enabled_config
         plugin.enabled?.must_equal true
       end
     end
@@ -101,7 +101,7 @@ describe Lolcommits::Plugin::Sample do
       end
 
       it 'should indicate when configured' do
-        plugin.runner.config = valid_enabled_config
+        plugin.config = valid_enabled_config
         plugin.configured?.must_equal true
       end
 
@@ -111,7 +111,7 @@ describe Lolcommits::Plugin::Sample do
         end
 
         it 'should be true for a valid configuration' do
-          plugin.runner.config = valid_enabled_config
+          plugin.config = valid_enabled_config
           plugin.valid_configuration?.must_equal true
         end
       end
