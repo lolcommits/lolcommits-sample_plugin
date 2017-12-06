@@ -2,8 +2,8 @@
 
 [![Gem Version](https://img.shields.io/gem/v/lolcommits-plugin-sample.svg?style=flat)](http://rubygems.org/gems/lolcommits-plugin-sample)
 [![Travis Build Status](https://travis-ci.org/lolcommits/lolcommits-plugin-sample.svg?branch=master)](https://travis-ci.org/lolcommits/lolcommits-plugin-sample)
-[![Coverage Status](https://coveralls.io/repos/github/lolcommits/lolcommits-plugin-sample/badge.svg?branch=master)](https://coveralls.io/github/lolcommits/lolcommits-plugin-sample)
-[![Code Climate](https://codeclimate.com/github/lolcommits/lolcommits-plugin-sample/badges/gpa.svg)](https://codeclimate.com/github/lolcommits/lolcommits-plugin-sample)
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/lolcommits/lolcommits-plugin-sample.svg)](https://codeclimate.com/github/lolcommits/lolcommits-plugin-sample/maintainability)
+[![Test Coverage](https://img.shields.io/codeclimate/c/lolcommits/lolcommits-plugin-sample.svg)](https://codeclimate.com/github/lolcommits/lolcommits-plugin-sample/test_coverage)
 [![Gem Dependency Status](https://gemnasium.com/badges/github.com/lolcommits/lolcommits-plugin-sample.svg)](https://gemnasium.com/github.com/lolcommits/lolcommits-plugin-sample)
 
 [lolcommits](https://lolcommits.github.io/) takes a snapshot with your webcam
@@ -277,7 +277,7 @@ The gem is available as open source under the terms of
 ## Links
 
 * [Travis CI](https://travis-ci.org/lolcommits/lolcommits-plugin-sample)
-* [Test Coverage](https://coveralls.io/github/lolcommits/lolcommits-plugin-sample?branch=master)
+* [Test Coverage](https://codeclimate.com/github/lolcommits/lolcommits-plugin-sample/test_coverage)
 * [Code Climate](https://codeclimate.com/github/lolcommits/lolcommits-plugin-sample)
 * [RDoc](http://rdoc.info/projects/lolcommits/lolcommits-plugin-sample)
 * [Issues](http://github.com/lolcommits/lolcommits-plugin-sample/issues)
