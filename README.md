@@ -22,9 +22,9 @@ before and after every lolcommit. Something like this;
     📸  Snap
     ✨  wow! 9e6303c is your best looking commit yet! 😘  💻
 
-Use this repo to jump-start development on your own plugin. It has good tests,
-docs and working hooks to useful tools (Travis, CodeClimate, Rdoc etc.) See
-below for more information on how to get started.
+Use this repo to jump-start development on your own plugin. It has tests, docs
+and integration with useful tools (Travis, CodeClimate, Rdoc etc.) See below for
+more information on how to get started.
 
 ## Developing your own plugin
 
@@ -176,7 +176,7 @@ input 'true' (followed by a carriage return) when prompted on STDIN:
     end
 
 For more examples take a look at the [tests in this
-repo](https://github.com/lolcommits/lolcommits-sample_plugin/blob/dev_guide/test/lolcommits/plugin/sample_test.rb)
+repo](https://github.com/lolcommits/lolcommits-sample_plugin/blob/master/test/lolcommits/plugin/sample_plugin_test.rb)
 (MiniTest).
 
 ### General advice
