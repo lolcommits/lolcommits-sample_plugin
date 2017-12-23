@@ -1,20 +1,18 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'lolcommits/sample_plugin/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "lolcommits-plugin-sample"
-  spec.version       = "0.1.6"
+  spec.name          = "lolcommits-sample_plugin"
+  spec.version       = Lolcommits::SamplePlugin::VERSION
   spec.authors       = ["Matthew Hutchinson"]
   spec.email         = ["matt@hiddenloop.com"]
 
   spec.summary       = %q{Example gem for lolcommits plugin development}
-  spec.description   = <<-EOF
-  Use this gem as a guide or template to get started with lolcommits plugin
-  development.
-  EOF
+  spec.description   = %q{Use this gem as a guide or template to get started with lolcommits plugin development}
 
-  spec.homepage      = "https://github.com/lolcommits/lolcommits-plugin-sample"
+  spec.homepage      = "https://github.com/lolcommits/lolcommits-sample_plugin"
   spec.license       = "LGPL-3"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -34,9 +32,10 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.0.0"
 
-  spec.add_development_dependency "lolcommits", ">= 0.9.5"
+  spec.add_development_dependency "lolcommits", ">= 0.9.8"
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "pry"
 end

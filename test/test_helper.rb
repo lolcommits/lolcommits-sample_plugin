@@ -15,7 +15,7 @@ if ENV['COVERAGE']
 end
 
 # plugin gem test libs
-require 'lolcommits/plugin/sample'
+require 'lolcommits/sample_plugin'
 require 'minitest/autorun'
 
 # swallow all debug output during test runs

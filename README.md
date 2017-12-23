@@ -1,10 +1,10 @@
-# Lolcommits Plugin Sample
+# Lolcommits Sample Plugin
 
-[![Gem Version](https://img.shields.io/gem/v/lolcommits-plugin-sample.svg?style=flat)](http://rubygems.org/gems/lolcommits-plugin-sample)
-[![Travis Build Status](https://travis-ci.org/lolcommits/lolcommits-plugin-sample.svg?branch=master)](https://travis-ci.org/lolcommits/lolcommits-plugin-sample)
-[![Maintainability](https://img.shields.io/codeclimate/maintainability/lolcommits/lolcommits-plugin-sample.svg)](https://codeclimate.com/github/lolcommits/lolcommits-plugin-sample/maintainability)
-[![Test Coverage](https://img.shields.io/codeclimate/c/lolcommits/lolcommits-plugin-sample.svg)](https://codeclimate.com/github/lolcommits/lolcommits-plugin-sample/test_coverage)
-[![Gem Dependency Status](https://gemnasium.com/badges/github.com/lolcommits/lolcommits-plugin-sample.svg)](https://gemnasium.com/github.com/lolcommits/lolcommits-plugin-sample)
+[![Gem Version](https://img.shields.io/gem/v/lolcommits-sample_plugin.svg?style=flat)](http://rubygems.org/gems/lolcommits-sample_plugin)
+[![Travis Build Status](https://travis-ci.org/lolcommits/lolcommits-sample_plugin.svg?branch=master)](https://travis-ci.org/lolcommits/lolcommits-sample_plugin)
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/lolcommits/lolcommits-sample_plugin.svg)](https://codeclimate.com/github/lolcommits/lolcommits-sample_plugin/maintainability)
+[![Test Coverage](https://img.shields.io/codeclimate/c/lolcommits/lolcommits-sample_plugin.svg)](https://codeclimate.com/github/lolcommits/lolcommits-sample_plugin/test_coverage)
+[![Gem Dependency Status](https://gemnasium.com/badges/github.com/lolcommits/lolcommits-sample_plugin.svg)](https://gemnasium.com/github.com/lolcommits/lolcommits-sample_plugin)
 
 [lolcommits](https://lolcommits.github.io/) takes a snapshot with your webcam
 every time you git commit code, and archives a lolcat style image with it. Git
@@ -50,12 +50,12 @@ be in the `LOAD_PATH` (required) with the gem for example:
     # at lib/lolcommits/plugin/zapier.rb
     # required in a file at lib/lolcommits/zapier.rb
 
-    # or a gem named: lolcommits-super-awesome
+    # or a gem named: lolcommits-super_awesome
     # should have a plugin class
-    class Lolcommits::Super::Awesome < Lolcommits::Plugin::Base
+    class Lolcommits::Plugin::SuperAwesome < Lolcommits::Plugin::Base
       ...
     end
-    # at lib/lolcommits/super/awesome.rb
+    # required in a file at lib/lolcommits/super_awesome.rb
 
 You **should** override the following methods in this class:
 
@@ -108,7 +108,7 @@ By default a plugin will only run it's capture hooks if:
 * `enabled?` returns true
 
 For more help, check out [the
-documentation](http://www.rubydoc.info/github/lolcommits/lolcommits-plugin-sample/Lolcommits/Plugin/Sample)
+documentation](http://www.rubydoc.info/github/lolcommits/lolcommits-sample_plugin/Lolcommits/Plugin/SamplePlugin)
 for this plugin, or take a look at [other
   lolcommit_plugins](https://github.com/search?q=topic%3Alolcommits-plugin+org%3Alolcommits&type=Repositories) in the wild.
 
@@ -176,7 +176,7 @@ input 'true' (followed by a carriage return) when prompted on STDIN:
     end
 
 For more examples take a look at the [tests in this
-repo](https://github.com/lolcommits/lolcommits-plugin-sample/blob/dev_guide/test/lolcommits/plugin/sample_test.rb)
+repo](https://github.com/lolcommits/lolcommits-sample_plugin/blob/dev_guide/test/lolcommits/plugin/sample_test.rb)
 (MiniTest).
 
 ### General advice
@@ -191,7 +191,7 @@ plugins](https://github.com/lolcommits).
 
 If you feel something is missing (or out of date) in this short guide. Please
 create a new
-[issue](https://github.com/lolcommits/lolcommits-plugin-sample/issues).
+[issue](https://github.com/lolcommits/lolcommits-sample_plugin/issues).
 
 ## History
 
@@ -214,11 +214,11 @@ compatibility with the main gem.
 Follow the [install guide](https://github.com/mroth/lolcommits#installation) for
 lolcommits first. Then run the following:
 
-    $ gem install lolcommits-plugin-sample
+    $ gem install lolcommits-sample_plugin
 
 Next configure and enable this plugin with:
 
-    $ lolcommits --config -p plugin-sample
+    $ lolcommits --config -p sample_plugin
     # set enabled to `true`
 
 That's it! Every lolcommit now comes with it's own short (emoji themed) message!
@@ -247,26 +247,26 @@ Generate docs for this gem with:
 ## Troubles?
 
 If you think something is broken or missing, please raise a new
-[issue](https://github.com/lolcommits/lolcommits-plugin-sample/issues). Take
+[issue](https://github.com/lolcommits/lolcommits-sample_plugin/issues). Take
 a moment to check it hasn't been raised in the past (and possibly closed).
 
 ## Contributing
 
-Bug [reports](https://github.com/lolcommits/lolcommits-plugin-sample/issues) and [pull
-requests](https://github.com/lolcommits/lolcommits-plugin-sample/pulls) are welcome on
+Bug [reports](https://github.com/lolcommits/lolcommits-sample_plugin/issues) and [pull
+requests](https://github.com/lolcommits/lolcommits-sample_plugin/pulls) are welcome on
 GitHub.
 
 When submitting pull requests, remember to add tests covering any new behaviour,
 and ensure all tests are passing on [Travis
-CI](https://travis-ci.org/lolcommits/lolcommits-plugin-sample). Read the
+CI](https://travis-ci.org/lolcommits/lolcommits-sample_plugin). Read the
 [contributing
-guidelines](https://github.com/lolcommits/lolcommits-plugin-sample/blob/master/CONTRIBUTING.md)
+guidelines](https://github.com/lolcommits/lolcommits-sample_plugin/blob/master/CONTRIBUTING.md)
 for more details.
 
 This project is intended to be a safe, welcoming space for collaboration, and
 contributors are expected to adhere to the [Contributor
 Covenant](http://contributor-covenant.org) code of conduct. See
-[here](https://github.com/lolcommits/lolcommits-plugin-sample/blob/master/CODE_OF_CONDUCT.md)
+[here](https://github.com/lolcommits/lolcommits-sample_plugin/blob/master/CODE_OF_CONDUCT.md)
 for more details.
 
 ## License
@@ -276,11 +276,11 @@ The gem is available as open source under the terms of
 
 ## Links
 
-* [Travis CI](https://travis-ci.org/lolcommits/lolcommits-plugin-sample)
-* [Test Coverage](https://codeclimate.com/github/lolcommits/lolcommits-plugin-sample/test_coverage)
-* [Code Climate](https://codeclimate.com/github/lolcommits/lolcommits-plugin-sample)
-* [RDoc](http://rdoc.info/projects/lolcommits/lolcommits-plugin-sample)
-* [Issues](http://github.com/lolcommits/lolcommits-plugin-sample/issues)
-* [Report a bug](http://github.com/lolcommits/lolcommits-plugin-sample/issues/new)
-* [Gem](http://rubygems.org/gems/lolcommits-plugin-sample)
-* [GitHub](https://github.com/lolcommits/lolcommits-plugin-sample)
+* [Travis CI](https://travis-ci.org/lolcommits/lolcommits-sample_plugin)
+* [Test Coverage](https://codeclimate.com/github/lolcommits/lolcommits-sample_plugin/test_coverage)
+* [Code Climate](https://codeclimate.com/github/lolcommits/lolcommits-sample_plugin)
+* [RDoc](http://rdoc.info/projects/lolcommits/lolcommits-sample_plugin)
+* [Issues](http://github.com/lolcommits/lolcommits-sample_plugin/issues)
+* [Report a bug](http://github.com/lolcommits/lolcommits-sample_plugin/issues/new)
+* [Gem](http://rubygems.org/gems/lolcommits-sample_plugin)
+* [GitHub](https://github.com/lolcommits/lolcommits-sample_plugin)

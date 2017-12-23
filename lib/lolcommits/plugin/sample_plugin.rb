@@ -2,7 +2,7 @@ require 'lolcommits/plugin/base'
 
 module Lolcommits
   module Plugin
-    class Sample < Base
+    class SamplePlugin < Base
 
       ##
       # Returns the name of the plugin.

@@ -1,20 +1,12 @@
 require 'test_helper'
 
-describe Lolcommits::Plugin::Sample do
+describe Lolcommits::Plugin::SamplePlugin do
 
   include Lolcommits::TestHelpers::GitRepo
   include Lolcommits::TestHelpers::FakeIO
 
-  def plugin_name
-    'plugin-sample'
-  end
-
-  it 'should have a name' do
-    ::Lolcommits::Plugin::Sample.name.must_equal plugin_name
-  end
-
   it 'should run on pre_capture and capture_ready' do
-    ::Lolcommits::Plugin::Sample.runner_order.must_equal [
+    ::Lolcommits::Plugin::SamplePlugin.runner_order.must_equal [
       :pre_capture, :post_capture, :capture_ready
     ]
   end
@@ -22,21 +14,15 @@ describe Lolcommits::Plugin::Sample do
   describe 'with a runner' do
     def runner
       # a simple lolcommits runner with an empty configuration Hash
-      @runner ||= Lolcommits::Runner.new(
-        config: OpenStruct.new(read_configuration: {})
-      )
+      @runner ||= Lolcommits::Runner.new
     end
 
     def plugin
-      @plugin ||= Lolcommits::Plugin::Sample.new(runner: runner)
+      @plugin ||= Lolcommits::Plugin::SamplePlugin.new(runner: runner)
     end
 
     def valid_enabled_config
-      @config ||= OpenStruct.new(
-        read_configuration: {
-          plugin.class.name => { 'enabled' => true }
-        }
-      )
+      { 'enabled' => true }
     end
 
     describe 'initalizing' do
@@ -80,7 +66,7 @@ describe Lolcommits::Plugin::Sample do
       end
 
       it 'should true when configured' do
-        plugin.config = valid_enabled_config
+        plugin.configuration = valid_enabled_config
         plugin.enabled?.must_equal true
       end
     end
@@ -101,7 +87,7 @@ describe Lolcommits::Plugin::Sample do
       end
 
       it 'should indicate when configured' do
-        plugin.config = valid_enabled_config
+        plugin.configuration = valid_enabled_config
         plugin.configured?.must_equal true
       end
 
@@ -111,7 +97,7 @@ describe Lolcommits::Plugin::Sample do
         end
 
         it 'should be true for a valid configuration' do
-          plugin.config = valid_enabled_config
+          plugin.configuration = valid_enabled_config
           plugin.valid_configuration?.must_equal true
         end
       end
