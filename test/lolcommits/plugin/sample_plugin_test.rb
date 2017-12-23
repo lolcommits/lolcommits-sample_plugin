@@ -14,7 +14,9 @@ describe Lolcommits::Plugin::SamplePlugin do
   describe 'with a runner' do
     def runner
       # a simple lolcommits runner with an empty configuration Hash
-      @runner ||= Lolcommits::Runner.new
+      @runner ||= Lolcommits::Runner.new(
+        config: OpenStruct.new(read_configuration: {})
+      )
     end
 
     def plugin
@@ -22,7 +24,11 @@ describe Lolcommits::Plugin::SamplePlugin do
     end
 
     def valid_enabled_config
-      { 'enabled' => true }
+      @config ||= OpenStruct.new(
+        read_configuration: {
+          plugin.class.name => { 'enabled' => true }
+        }
+      )
     end
 
     describe 'initalizing' do
@@ -66,7 +72,7 @@ describe Lolcommits::Plugin::SamplePlugin do
       end
 
       it 'should true when configured' do
-        plugin.configuration = valid_enabled_config
+        plugin.config = valid_enabled_config
         plugin.enabled?.must_equal true
       end
     end
@@ -87,7 +93,7 @@ describe Lolcommits::Plugin::SamplePlugin do
       end
 
       it 'should indicate when configured' do
-        plugin.configuration = valid_enabled_config
+        plugin.config = valid_enabled_config
         plugin.configured?.must_equal true
       end
 
@@ -97,7 +103,7 @@ describe Lolcommits::Plugin::SamplePlugin do
         end
 
         it 'should be true for a valid configuration' do
-          plugin.configuration = valid_enabled_config
+          plugin.config = valid_enabled_config
           plugin.valid_configuration?.must_equal true
         end
       end
