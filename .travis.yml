@@ -21,7 +21,7 @@ matrix:
 
 env:
   global:
-    - CC_TEST_REPORTER_ID=20a60116558e845bcc81f2f90d1f232c7a00431407d62e1c5c3a07204d528a4a
+    - CC_TEST_REPORTER_ID=7fb6d4a66ca2ac21658b29d3738952994f3b68354a8e3e6318bf1108eda6c243
     - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
