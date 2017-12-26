@@ -59,7 +59,7 @@ module Lolcommits
       # Prints a short (emoji themed) message to STDOUT
       #
       def run_pre_capture
-        puts "✨  Say cheese 😁 !"
+        puts "✨  Say cheese 😁 !" if configuration[:ask_for_cheese]
       end
 
       ##
@@ -72,7 +72,7 @@ module Lolcommits
       # Prints a short (emoji themed) message to STDOUT
       #
       def run_post_capture
-        puts "📸  Snap "
+        puts "#{"📸  " * configuration[:message][:emoji_multiplier].to_i}Snap!"
       end
 
       ##
@@ -87,7 +87,9 @@ module Lolcommits
       # sha.
       #
       def run_capture_ready
-        puts "✨  wow! #{self.runner.sha} is your best looking commit yet! 😘  💻"
+        if configuration[:always_a_great_commit?]
+          puts "✨  wow! #{self.runner.sha} is your best looking commit yet! 😘  💻"
+        end
       end
 
       ##
@@ -124,6 +126,17 @@ module Lolcommits
       #
       def configure_options!
         super
+      end
+
+      def default_options
+        {
+          "enabled" => false,
+          ask_for_cheese: true,
+          always_a_great_commit?: true,
+          message: {
+            emoji_multiplier: 1
+          }
+        }
       end
 
       ##
