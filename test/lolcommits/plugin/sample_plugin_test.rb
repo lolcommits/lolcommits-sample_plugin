@@ -14,9 +14,7 @@ describe Lolcommits::Plugin::SamplePlugin do
   describe 'with a runner' do
     def runner
       # a simple lolcommits runner with an empty configuration Hash
-      @runner ||= Lolcommits::Runner.new(
-        config: OpenStruct.new(read_configuration: {})
-      )
+      @runner ||= Lolcommits::Runner.new
     end
 
     def plugin
@@ -24,22 +22,18 @@ describe Lolcommits::Plugin::SamplePlugin do
     end
 
     def valid_enabled_config
-      @config ||= OpenStruct.new(
-        read_configuration: {
-          plugin.class.name => { 'enabled' => true }
+      {
+        enabled: true,
+        ask_for_cheese: false,
+        always_a_great_commit?: true,
+        camera_emoji: {
+          enabled: true,
+          emoji_multiplier: 5
         }
-      )
-    end
-
-    describe 'initalizing' do
-      it 'should assign runner and an enabled option' do
-        plugin.runner.must_equal runner
-        plugin.options.must_equal ['enabled']
-      end
+      }
     end
 
     describe '#run_pre_capture' do
-
       before { commit_repo_with_message }
 
       it 'should output a message to stdout' do
@@ -68,33 +62,24 @@ describe Lolcommits::Plugin::SamplePlugin do
 
     describe '#enabled?' do
       it 'should be false by default' do
-        plugin.enabled?.must_equal false
+        assert_nil plugin.enabled?
       end
 
       it 'should true when configured' do
-        plugin.config = valid_enabled_config
+        plugin.configuration = valid_enabled_config
         plugin.enabled?.must_equal true
       end
     end
 
     describe 'configuration' do
-      it 'should not be configured by default' do
-        plugin.configured?.must_equal false
-      end
-
       it 'should allow plugin options to be configured' do
         configured_plugin_options = {}
 
-        output = fake_io_capture(inputs: %w(true)) do
+        output = fake_io_capture(inputs: %w(true false true true 5)) do
           configured_plugin_options = plugin.configure_options!
         end
 
-        configured_plugin_options.must_equal( { "enabled" => true })
-      end
-
-      it 'should indicate when configured' do
-        plugin.config = valid_enabled_config
-        plugin.configured?.must_equal true
+        configured_plugin_options.must_equal(valid_enabled_config)
       end
 
       describe '#valid_configuration?' do
@@ -103,7 +88,7 @@ describe Lolcommits::Plugin::SamplePlugin do
         end
 
         it 'should be true for a valid configuration' do
-          plugin.config = valid_enabled_config
+          plugin.configuration = valid_enabled_config
           plugin.valid_configuration?.must_equal true
         end
       end
