@@ -62,7 +62,7 @@ describe Lolcommits::Plugin::SamplePlugin do
 
     describe '#enabled?' do
       it 'should be false by default' do
-        assert_nil plugin.enabled?
+        plugin.enabled?.must_equal false
       end
 
       it 'should true when configured' do
@@ -75,7 +75,7 @@ describe Lolcommits::Plugin::SamplePlugin do
       it 'should allow plugin options to be configured' do
         configured_plugin_options = {}
 
-        output = fake_io_capture(inputs: %w(true false true true 5)) do
+        fake_io_capture(inputs: %w(true false true true 5)) do
           configured_plugin_options = plugin.configure_options!
         end
 

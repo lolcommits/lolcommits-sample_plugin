@@ -1,7 +1,6 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
-# necessary libs from lolcommits (allowing plugin to run)
-require 'git'
+# lolcommits gem
 require 'lolcommits'
 
 # lolcommit test helpers
