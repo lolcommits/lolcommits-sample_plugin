@@ -10,12 +10,13 @@
 every time you git commit code, and archives a lolcat style image with it. Git
 blame has never been so much fun!
 
-Lolcommit plugins are automatically loaded before the capturing process starts.
-The flexible class design allows developers to add features by running code
-before or after snapshots are taken.
+Lolcommit plugins allow developers to add features by running code before or
+after snapshots are taken. Installed plugin gems are automatically loaded before
+the capturing process starts.
 
 This gem showcases an example plugin. It prints short messages to the screen
-before and after every lolcommit. Something like this;
+before and after every lolcommit. After configuring the plugin to be enabled,
+you'll see something like this for a capture:
 
     ✨  Say cheese 😁 !
     *** Preserving this moment in history.
@@ -23,27 +24,25 @@ before and after every lolcommit. Something like this;
     ✨  wow! 9e6303c is your best looking commit yet! 😘  💻
 
 Use this repo to jump-start development on your own plugin. It has tests, docs
-and integration with useful tools (Travis, CodeClimate, Rdoc etc.) See below for
-more information on how to get started.
+and hooks with useful tools; Travis, CodeClimate, Rdoc etc.
 
 ## Developing your own plugin
 
-First, there are some things your gem *must* do to be loaded and executed
-correctly. At the very least:
+First, there are some things your gem *must* do to be loaded and executed:
 
-* Name your gem with the `lolcommits-` prefix.
+* The gem name must have a `lolcommits-` prefix.
+* Require `lolcommits` in your `gemspec` file as a development dependency.
 * Include a class that inherits from `Lolcommits::Plugin::Base` (this will be
   the entry point to your plugin from the lolcommits gem).
 * This main plugin class must meet the requirements explained below.
-* Require `lolcommits` in your gem spec as a development dependency.
 
 ### Your Plugin Class
 
 You plugin class must have a namespace and path that matches your gem name and
-be in the `LOAD_PATH` (required) with the gem for example:
+be in the gem's `LOAD_PATH` for example:
 
-    # a gem named: lolcommits-zapier
-    # should have a plugin class inheriting from Base like so:
+    # for a gem named: lolcommits-zapier
+    # should have a plugin class inheriting like this:
     class Lolcommits::Plugin::Zapier < Lolcommits::Plugin::Base
       ...
     end
@@ -51,61 +50,84 @@ be in the `LOAD_PATH` (required) with the gem for example:
     # required in a file at lib/lolcommits/zapier.rb
 
     # or a gem named: lolcommits-super_awesome
-    # should have a plugin class
+    # should have a plugin class like this:
     class Lolcommits::Plugin::SuperAwesome < Lolcommits::Plugin::Base
       ...
     end
     # required in a file at lib/lolcommits/super_awesome.rb
 
-You **should** override the following methods in this class:
+Three hooks points are available during the capture process.
 
-* `def self.name` - identifies the plugin to lolcommits and users, keep things
-  simple and choose a name that matches your gem name.
+* `:pre_capture` - executes before the capture starts, at this point you
+  could alter the commit message/sha text.
+* `:post_capture` - executes immediately after the camera captures, use this
+  hook to manipulate the image (e.g. resize, apply filters, annotate).
+* `:capture_ready` - executes after all `:post_capture` hooks have ran, at this
+  point we consider the capture to be ready for exporting or sharing.
+
+To execute code at these points you'll need to override these methods in your
+plugin class:
+
 * `def self.runner_order` - return the hooks this plugin should run at during
   the capture process (`:pre_capture`, `:post_capture` and/or `:capture_ready`).
 * `def run_pre_capture`, `def run_post_capture` and/or `def run_capture_ready` -
   override with your plugin's behaviour.
 
-Three hooks points are available during the lolcommits capture process.
-
-* `:pre_capture` - called before the camera starts capturing, at this point you
-  could alter the commit message/sha text.
-* `:post_capture` - called immediately after the camera snaps the raw image (or
-  video for gif captures) use this hook to alter the image, other plugins may
-  hook here to modify the image too.
-  `:capture_ready` - called after all `:post_capture` plugins have ran, at this
-  point the capture should be ready for exporting or sharing.
-
 ### Plugin configuration
 
-The `Base` class initializer defines an `@options` instance var, with an array
-of setting names that the user can configure. By default, the only option is
-`enabled` and plugins *must* be configured as `enabled = true` to run.
+Available options can be defined in an Array (`@options` instance var) and/or a
+Hash (by overriding the `default_options` method).
 
-A plugin can be configured by the lolcommits gem with;
+By default (on initialize), `@options` will be set to `[:enabled]`. This option
+is mandatory since `enabled?` checks `configuration[:enabled] == true` before
+any capture hooks can run.
+
+Using a Hash to define default options allows you to:
+
+- fall back to default values (or nil) if the user enters nothing when prompted
+- define nested options (the user is prompted for each nested option key)
+
+`configure_option_hash` will iterate over all options prompting the user for
+input and building the configuration Hash.
+
+Lolcommits will save this Hash to a YAML file. During the capture process the
+configuration is loaded, parsed and available in the plugin class as
+`configuration`. Or if you want to fall back to default values, you should use
+the `config_option(*keys)` method to dig into the hash.
+
+Alternatively you can override these methods to fully customise the
+configuration process.
+
+* `def configure_options!` - by default this prompts the user for option values
+  (based on option names in the `@options` array) and returns a hash that will
+  be persisted.
+* `def enabled?` - by default checks if `configuration[:enabled] == true` to
+  determine if the plugin should run.
+* `def configured?` - checks the persisted config hash is present.
+* `def valid_configuration?`- checks the persisted config hash is valid.
+
+A `parse_user_input` method is available to help parse strings from STDIN to
+Ruby objects (e.g. boolean, integer or nil values).
+
+Users start plugin configuration with this lolcommits command;
 
     lolcommits --config
     # or
     lolcommits --config -p plugin-name
 
-Use the `configuration` method in your plugin class to read these options.
-Plugin methods you may want to override with custom configuration code include:
-
-* `def enabled?` - usually checks `configuration['enabled']` to determine if the
-  plugin should run.
-* `def configure_options!` - prompts the user for configuration (based on the
-  `@options`) returns a hash that will be persisted.
-* `def configured?` - checks the persisted config hash is present.
-* `def valid_configuration?`- checks the persisted config hash has valid data.
-
-If your plugin requires no configuration, you could override the `enabled?`
-method to always return `true`. Users could disable your plugin by uninstalling
-the gem.
-
 By default a plugin will only run it's capture hooks if:
 
 * `valid_configuration?` returns true
 * `enabled?` returns true
+
+During plugin configuration, your plugin class will be initialized with the
+optional `config` argument (and no runner). This allows you to read the existing
+saved options during configuration. E.g. to show existing options back to the
+user.
+
+__NOTE__: If your plugin does not require configuration and should be enabled by
+default (on gem install) you could override the `enabled?` method to always
+return `true`. Uninstalling the gem will disable the plugin.
 
 For more help, check out [the
 documentation](http://www.rubydoc.info/github/lolcommits/lolcommits-sample_plugin/Lolcommits/Plugin/SamplePlugin)
@@ -115,31 +137,25 @@ for this plugin, or take a look at [other
 ### The Lolcommits 'runner'
 
 The only required argument for your plugin class initializer is a
-`Lolcommits::Runner` instance. By default, the base plugin initializer will set
-this in the `runner` instance var.
+[Lolcommits::Runner](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/runner.rb)
+instance. By default, the base plugin initializer will set this in the `runner`
+instance var for use in your plugin's code.
 
-Use these runner methods to access the commit, repo and configuration:
-
-* `runner.message` - the git commit message.
-* `runner.sha` - the git sha for the current commit.
+* `runner.message` - the commit message
+* `runner.sha` - the sha for the current commit
 * `runner.vcs_info` - a reference to the
   [Lolcommits::VCSInfo](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/vcs_info.rb)
-  instance.
+  instance
 * `runner.config` - a reference to the
   [Lolcommits::Configuration](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/configuration.rb)
-  instance.
+  instance
 
-After the capturing process has completed, (i.e. in the `run_post_capture` or
+After the capturing process completes, (i.e. in the `run_post_capture` or
 `run_capture_ready` hooks) these methods will reveal the captured snapshot file.
 
-* `runner.snapshot_loc` - the raw image file.
+* `runner.snapshot_loc` - the raw image file
 * `runner.main_image` - the processed image file, resized, with text overlay
-  applied (or any other effects from other plugins).
-
-During plugin configuration, your plugin class will be initialized with the
-optional `config` argument (and no runner). This allows you to read the existing
-saved options during configuration. E.g. to show the existing options back to
-the user.
+  applied (or any other effects from other plugins)
 
 Take a look at the
 [Lolcommits::Runner](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/runner.rb)
@@ -148,10 +164,10 @@ for more details.
 ### Testing your plugin
 
 It's a good idea to include tests with your gem. To make this easier for you,
-the main lolcommits gem provides helpers to work with IO and Git repos in
-test.
+the main lolcommits gem includes helpers to work with command line IO and Git
+repos.
 
-    # add one or both of these to your plugin's test_helper file
+    # add one (or both) of these to your plugin's test_helper file
     require 'lolcommits/test_helpers/git_repo'
     require 'lolcommits/test_helpers/fake_io'
 
@@ -161,44 +177,35 @@ test.
 
 Use the following methods to manage a test repo:
 
-    setup_repo                 # create the test repo
-    commit_repo_with_message   # perform a git commit in the test repo
-    last_commit                # git commit info for the last commit in the test repo
-    teardown_repo              # destroy the test repo
-    in_repo(&block)            # run lolcommits within the test repo
+    setup_repo                # create the test repo
+    commit_repo_with_message  # perform a git commit in the test repo
+    last_commit               # commit info for the last test repo commit
+    teardown_repo             # destroy the test repo
+    in_repo(&block)           # run lolcommits within the test repo
 
-For submitting and capturing IO use the `fake_io_capture` method. E.g. to
-capture the output of the `configure_options` method, while sending the string
-input 'true' (followed by a carriage return) when prompted on STDIN:
+For STDIN and capturing IO use the `fake_io_capture` method. E.g. to capture the
+output of the `configure_options` method, while sending the string input 'true'
+(followed by a carriage return) to STDIN:
 
     output = fake_io_capture(inputs: %w(true)) do
       configured_plugin_options = plugin.configure_options!
     end
 
 For more examples take a look at the [tests in this
-repo](https://github.com/lolcommits/lolcommits-sample_plugin/blob/master/test/lolcommits/plugin/sample_plugin_test.rb)
-(MiniTest).
+repo](https://github.com/lolcommits/lolcommits-sample_plugin/blob/master/test/lolcommits/plugin/sample_plugin_test.rb).
 
 ### General advice
 
-Use this gem as a starting point, renaming files, classes and references. Or
-build a new plugin gem from scratch with:
+Use this gem as a starting point, renaming files, classes etc. Or build a new
+plugin gem from scratch with:
 
-    bundle gem lolcommits-my-plugin
+    bundle gem lolcommits-my_plugin
 
 For more examples, take a look at other published [lolcommit
 plugins](https://github.com/lolcommits).
 
-If you feel something is missing (or out of date) in this short guide. Please
-create a new
-[issue](https://github.com/lolcommits/lolcommits-sample_plugin/issues).
-
-## History
-
-Until recently, all plugins lived inside the main lolcommits gem. We are in the
-process of extracting them to individual gems, loaded with the new plugin
-manager. Ruby gem versioning will take care of managing dependencies and
-compatibility with the main gem.
+If you feel something is missing (or out of date) in this guide. Please create
+an [issue](https://github.com/lolcommits/lolcommits-sample_plugin/issues).
 
 ---
 
@@ -219,9 +226,9 @@ lolcommits first. Then run the following:
 Next configure and enable this plugin with:
 
     $ lolcommits --config -p sample_plugin
-    # set enabled to `true`
+    # set enabled to `true` and configure other options as you like
 
-That's it! Every lolcommit now comes with it's own short (emoji themed) message!
+That's it! Every lolcommit now comes with it's own emoji themed commentary!
 
 ## Development
 
@@ -247,8 +254,8 @@ Generate docs for this gem with:
 ## Troubles?
 
 If you think something is broken or missing, please raise a new
-[issue](https://github.com/lolcommits/lolcommits-sample_plugin/issues). Take
-a moment to check it hasn't been raised in the past (and possibly closed).
+[issue](https://github.com/lolcommits/lolcommits-sample_plugin/issues). Take a
+moment to check it hasn't been raised in the past (and possibly closed).
 
 ## Contributing
 
