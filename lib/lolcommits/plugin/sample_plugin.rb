@@ -7,7 +7,7 @@ module Lolcommits
       ##
       # Plugin initializer
       #
-      # @param runner [Lolcommits::Runner] an instance of a lolcommits runner
+      # @param runner [Lolcommits::Runner] an instance of a Lolcommits runner
       # @param config [Hash] plugin config hash (parsed from saved config YAML)
       #
       # The default superclass method sets @runner and @configuration instance
@@ -36,7 +36,6 @@ module Lolcommits
       end
 
       ##
-      #
       # Pre-capture hook, runs before lolcommits captures a snapshot.
       #
       # Override this method to execute plugin code before the lolcommit
@@ -49,7 +48,6 @@ module Lolcommits
       end
 
       ##
-      #
       # Post-capture hook, run after lolcommits captures a snapshot.
       #
       # Override this method to execute plugin code after the lolcommit snapshot
@@ -63,7 +61,6 @@ module Lolcommits
       end
 
       ##
-      #
       # Capture ready hook, runs after lolcommits captures a snapshot.
       #
       # Override this method to execute plugin code after the lolcommit snapshot
@@ -91,7 +88,7 @@ module Lolcommits
       #
       # Note: a `valid_configuration?` method also exists and is checked before
       # any plugin hooks execute. Use that to check individual config option
-      # values.
+      # values are valid.
       #
       # @return [Boolean] true/false indicating if plugin is enabled
       #
@@ -132,6 +129,13 @@ module Lolcommits
         super
       end
 
+
+      ##
+      # Returns a hash of default options to be presented to the user when
+      # configuring (with `configure_options!`.
+      #
+      # @return [Hash] with the default option names (keys) and values
+      #
       def default_options
         {
           ask_for_cheese: true,
