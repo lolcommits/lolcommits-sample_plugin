@@ -5,9 +5,10 @@ module Lolcommits
     class SamplePlugin < Base
 
       ##
-      # Plugin initializer
+      # Initializer
       #
       # @param runner [Lolcommits::Runner] an instance of a Lolcommits runner
+      # @param name [String] name for this plugin, usually set from Gem name
       # @param config [Hash] plugin config hash (parsed from saved config YAML)
       #
       # The default superclass method sets @runner and @configuration instance
@@ -15,24 +16,8 @@ module Lolcommits
       #
       # Override this method to change the default configurable option names
       #
-      def initialize(runner: nil, config: nil)
+      def initialize(runner: nil, name: nil, config: nil)
         super
-      end
-
-      ##
-      # Returns position(s) of when this plugin should run during the capture
-      # process.
-      #
-      # Defines when the plugin will execute in the capture process. This must
-      # be defined, if the method returns nil, or [] the plugin will never run.
-      # Three hook positions exist, your plugin code can execute in one or more
-      # of these.
-      #
-      # @return [Array] the position(s) (:pre_capture, :post_capture,
-      # :capture_ready)
-      #
-      def self.runner_order
-        [:pre_capture, :post_capture, :capture_ready]
       end
 
       ##
@@ -128,7 +113,6 @@ module Lolcommits
       def configure_options!
         super
       end
-
 
       ##
       # Returns a hash of default options to be presented to the user when

@@ -5,12 +5,6 @@ describe Lolcommits::Plugin::SamplePlugin do
   include Lolcommits::TestHelpers::GitRepo
   include Lolcommits::TestHelpers::FakeIO
 
-  it 'should run on pre_capture and capture_ready' do
-    ::Lolcommits::Plugin::SamplePlugin.runner_order.must_equal [
-      :pre_capture, :post_capture, :capture_ready
-    ]
-  end
-
   describe 'with a runner' do
     def runner
       # a simple lolcommits runner with an empty configuration Hash
@@ -36,10 +30,23 @@ describe Lolcommits::Plugin::SamplePlugin do
     describe '#run_pre_capture' do
       before { commit_repo_with_message }
 
-      it 'should output a message to stdout' do
+      it 'outputs a message to stdout' do
         in_repo do
           Proc.new { plugin.run_pre_capture }.
             must_output "✨  Say cheese 😁 !\n"
+        end
+      end
+
+      after { teardown_repo }
+    end
+
+    describe '#run_post_capture' do
+      before { commit_repo_with_message }
+
+      it 'outputs a message to stdout' do
+        plugin.configuration = valid_enabled_config
+        in_repo do
+          Proc.new { plugin.run_post_capture }.must_output "📸  📸  📸  📸  📸  Snap!\n"
         end
       end
 
@@ -50,7 +57,7 @@ describe Lolcommits::Plugin::SamplePlugin do
 
       before { commit_repo_with_message }
 
-      it 'should output a message to stdout' do
+      it 'outputs a message to stdout' do
         in_repo do
           Proc.new { plugin.run_capture_ready }.
             must_output "✨  wow! #{last_commit.sha[0..10]} is your best looking commit yet! 😘  💻\n"
@@ -61,18 +68,18 @@ describe Lolcommits::Plugin::SamplePlugin do
     end
 
     describe '#enabled?' do
-      it 'should be false by default' do
+      it 'returns be false by default' do
         plugin.enabled?.must_equal false
       end
 
-      it 'should true when configured' do
+      it 'returns true when configured' do
         plugin.configuration = valid_enabled_config
         plugin.enabled?.must_equal true
       end
     end
 
     describe 'configuration' do
-      it 'should allow plugin options to be configured' do
+      it 'allows plugin options to be configured' do
         configured_plugin_options = {}
 
         fake_io_capture(inputs: %w(true false true true 5)) do
@@ -83,11 +90,11 @@ describe Lolcommits::Plugin::SamplePlugin do
       end
 
       describe '#valid_configuration?' do
-        it 'should be false without config set' do
+        it 'returns false without config set' do
           plugin.valid_configuration?.must_equal(false)
         end
 
-        it 'should be true for a valid configuration' do
+        it 'returns true for a valid configuration' do
           plugin.configuration = valid_enabled_config
           plugin.valid_configuration?.must_equal true
         end
