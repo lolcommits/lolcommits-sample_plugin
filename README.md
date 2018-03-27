@@ -95,7 +95,6 @@ configuration process.
   returns a Hash that will be persisted.
 * `def enabled?` - by default checks if `configuration[:enabled] == true` to
   determine if the plugin should run.
-* `def configured?` - checks the persisted config Hash is present.
 * `def valid_configuration?`- checks the persisted config Hash is valid.
 
 By default a plugin will only run it's capture hooks if:
