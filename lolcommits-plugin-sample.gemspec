@@ -1,19 +1,16 @@
-# coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'lolcommits/sample_plugin/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "lolcommits-sample_plugin"
-  spec.version       = Lolcommits::SamplePlugin::VERSION
-  spec.authors       = ["Matthew Hutchinson"]
-  spec.email         = ["matt@hiddenloop.com"]
-
-  spec.summary       = %q{Example gem for lolcommits plugin development}
-  spec.description   = %q{Use this gem as a guide or template to get started with lolcommits plugin development}
-
-  spec.homepage      = "https://github.com/lolcommits/lolcommits-sample_plugin"
-  spec.license       = "LGPL-3"
+  spec.name        = "lolcommits-sample_plugin"
+  spec.version     = Lolcommits::SamplePlugin::VERSION
+  spec.authors     = ["Matthew Hutchinson"]
+  spec.email       = ["matt@hiddenloop.com"]
+  spec.summary     = %q{Example gem for lolcommits plugin development}
+  spec.homepage    = "https://github.com/lolcommits/lolcommits-sample_plugin"
+  spec.license     = "LGPL-3"
+  spec.description = %q{Use this gem as a guide or template to get started with lolcommits plugin development}
 
   spec.metadata = {
     "homepage_uri"    => "https://github.com/lolcommits/lolcommits-sample_plugin",
