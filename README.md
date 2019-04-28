@@ -123,17 +123,17 @@ for this plugin, or take a look at [other
 ### The Lolcommits 'runner'
 
 The only required argument for your plugin class initializer is a
-[Lolcommits::Runner](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/runner.rb)
+[Lolcommits::Runner](https://github.com/lolcommits/lolcommits/blob/master/lib/lolcommits/runner.rb)
 instance. By default, the base plugin initializer will set this in the `runner`
 instance var for use in your plugin's code.
 
 * `runner.message` - the commit message
 * `runner.sha` - the sha for the current commit
 * `runner.vcs_info` - a reference to the
-  [Lolcommits::VCSInfo](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/vcs_info.rb)
+  [Lolcommits::VCSInfo](https://github.com/lolcommits/lolcommits/blob/master/lib/lolcommits/vcs_info.rb)
   instance
 * `runner.config` - a reference to the
-  [Lolcommits::Configuration](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/configuration.rb)
+  [Lolcommits::Configuration](https://github.com/lolcommits/lolcommits/blob/master/lib/lolcommits/configuration.rb)
   instance
 
 After the capturing process completes, (i.e. in `run_post_capture` or
@@ -144,7 +144,7 @@ After the capturing process completes, (i.e. in `run_post_capture` or
   applied (or any other post_capture effects)
 
 Take a look at
-[Lolcommits::Runner](https://github.com/mroth/lolcommits/blob/master/lib/lolcommits/runner.rb)
+[Lolcommits::Runner](https://github.com/lolcommits/lolcommits/blob/master/lib/lolcommits/runner.rb)
 for more details.
 
 ### Testing your plugin
@@ -198,7 +198,7 @@ plugins](https://github.com/lolcommits).
 
 ## Installation
 
-Follow the [install guide](https://github.com/mroth/lolcommits#installation) for
+Follow the [install guide](https://github.com/lolcommits/lolcommits#installation) for
 lolcommits first. Then run the following:
 
     $ gem install lolcommits-sample_plugin
