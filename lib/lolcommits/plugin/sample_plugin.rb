@@ -61,6 +61,7 @@ module Lolcommits
         if config_option(:always_a_great_commit?)
           puts "✨  wow! #{self.runner.sha} is your best looking commit yet! 😘  💻"
         end
+        puts "-> lolcommit ready at #{self.runner.lolcommit_path}"
       end
 
       ##
