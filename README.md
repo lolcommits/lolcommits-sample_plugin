@@ -21,8 +21,8 @@ be enabled, you'll see something like this for a capture:
     ✨  Say cheese 😁 !
     *** Preserving this moment in history.
     📸  Snap
-    ✨  wow! 9e6303c is your best looking commit yet! 😘  💻
-    -> lolcommit ready at /some/path/to/ad276b773b8.jpg
+    wow! 9e6303c at /path/to/lolcommit.jpg is your best looking commit yet!
+    (it was an image!)
 
 Use this repo to jump-start development on your own plugin. It has
 tests, docs and hooks with useful tools; Travis, CodeClimate, Rdoc etc.
@@ -149,6 +149,7 @@ instance var for use in your plugin's code.
 * `runner.lolcommits_gif_path` - the processed lolcommit animated gif path (may be `nil`)
 * `runner.capture_video` - `true` when a video capture was generated
 * `runner.capture_gif` - `true` when an animated gif capture was generated
+* `runner.capture_image` - `true` when an image (jpg) was captured, false for gifs/videos
 
 After the capturing process completes, (i.e. in `run_post_capture` or
 `run_capture_ready` hooks) use `runner.lolcommit_path` to access the

@@ -59,9 +59,17 @@ module Lolcommits
       #
       def run_capture_ready
         if config_option(:always_a_great_commit?)
-          puts "✨  wow! #{self.runner.sha} is your best looking commit yet! 😘  💻"
+          puts "wow! #{self.runner.sha} at #{self.runner.lolcommit_path} is your best looking commit yet!"
         end
-        puts "-> lolcommit ready at #{self.runner.lolcommit_path}"
+
+        # describe the lolcommit
+        if self.runner.capture_image?
+          puts "(it was an image!)"
+        elsif self.runner.capture_video
+          puts "(it was a video!)"
+        elsif self.runner.capture_gif
+          puts "(it was a gif!)"
+        end
       end
 
       ##

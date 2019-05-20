@@ -10,7 +10,9 @@ describe Lolcommits::Plugin::SamplePlugin do
   describe 'with a runner' do
     def runner
       # a simple lolcommits runner with an empty configuration Hash
-      @runner ||= Lolcommits::Runner.new
+      @runner ||= Lolcommits::Runner.new(
+        lolcommit_path: "/path/to/lolcommit.jpg"
+      )
     end
 
     def plugin
@@ -62,7 +64,7 @@ describe Lolcommits::Plugin::SamplePlugin do
       it 'outputs a message to stdout' do
         in_repo do
           Proc.new { plugin.run_capture_ready }.
-            must_output "✨  wow! #{last_commit.sha[0..10]} is your best looking commit yet! 😘  💻\n"
+            must_output "wow! #{last_commit.sha[0..10]} at /path/to/lolcommit.jpg is your best looking commit yet!\n(it was an image!)\n"
         end
       end
 
