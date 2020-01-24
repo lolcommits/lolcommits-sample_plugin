@@ -36,7 +36,7 @@ describe Lolcommits::Plugin::SamplePlugin do
 
       it 'outputs a message to stdout' do
         in_repo do
-          Proc.new { plugin.run_pre_capture }.
+          _(Proc.new { plugin.run_pre_capture }).
             must_output "✨  Say cheese 😁 !\n"
         end
       end
@@ -50,7 +50,8 @@ describe Lolcommits::Plugin::SamplePlugin do
       it 'outputs a message to stdout' do
         plugin.configuration = valid_enabled_config
         in_repo do
-          Proc.new { plugin.run_post_capture }.must_output "📸  📸  📸  📸  📸  Snap!\n"
+          _(Proc.new { plugin.run_post_capture }).
+            must_output "📸  📸  📸  📸  📸  Snap!\n"
         end
       end
 
@@ -63,7 +64,7 @@ describe Lolcommits::Plugin::SamplePlugin do
 
       it 'outputs a message to stdout' do
         in_repo do
-          Proc.new { plugin.run_capture_ready }.
+          _(Proc.new { plugin.run_capture_ready }).
             must_output "wow! #{last_commit.sha[0..10]} at /path/to/lolcommit.jpg is your best looking commit yet!\n(it was an image!)\n"
         end
       end
@@ -73,12 +74,12 @@ describe Lolcommits::Plugin::SamplePlugin do
 
     describe '#enabled?' do
       it 'returns be false by default' do
-        plugin.enabled?.must_equal false
+        _(plugin.enabled?).must_equal false
       end
 
       it 'returns true when configured' do
         plugin.configuration = valid_enabled_config
-        plugin.enabled?.must_equal true
+        _(plugin.enabled?).must_equal true
       end
     end
 
@@ -90,17 +91,17 @@ describe Lolcommits::Plugin::SamplePlugin do
           configured_plugin_options = plugin.configure_options!
         end
 
-        configured_plugin_options.must_equal(valid_enabled_config)
+        _(configured_plugin_options).must_equal(valid_enabled_config)
       end
 
       describe '#valid_configuration?' do
         it 'returns false without config set' do
-          plugin.valid_configuration?.must_equal(false)
+          _(plugin.valid_configuration?).must_equal(false)
         end
 
         it 'returns true for a valid configuration' do
           plugin.configuration = valid_enabled_config
-          plugin.valid_configuration?.must_equal true
+          _(plugin.valid_configuration?).must_equal true
         end
       end
     end

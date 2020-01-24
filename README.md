@@ -227,7 +227,7 @@ repo](https://github.com/lolcommits/lolcommits-sample_plugin/blob/master/test/lo
 
 ## Requirements
 
-* Ruby >= 2.3
+* Ruby >= 2.4
 * A webcam
 * [ImageMagick](http://www.imagemagick.org)
 * [ffmpeg](https://www.ffmpeg.org) (optional) for animated gif capturing
