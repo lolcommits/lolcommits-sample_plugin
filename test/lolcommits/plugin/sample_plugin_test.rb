@@ -59,7 +59,6 @@ describe Lolcommits::Plugin::SamplePlugin do
     end
 
     describe '#run_capture_ready' do
-
       before { commit_repo_with_message }
 
       it 'outputs a message to stdout' do

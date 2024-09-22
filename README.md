@@ -1,10 +1,8 @@
 # Lolcommits Sample Plugin
 
+[![Build](https://img.shields.io/github/actions/workflow/status/lolcommits/lolcommits-sample_plugin/build.yml?branch=main&style=flat)](https://github.com/lolcommits/lolcommits-sample_plugin/actions/workflows/build.yml)
 [![Gem](https://img.shields.io/gem/v/lolcommits-sample_plugin.svg?style=flat)](http://rubygems.org/gems/lolcommits-sample_plugin)
-[![Travis](https://img.shields.io/travis/com/lolcommits/lolcommits-sample_plugin/master.svg?style=flat)](https://travis-ci.com/lolcommits/lolcommits-sample_plugin)
 [![Depfu](https://img.shields.io/depfu/lolcommits/lolcommits-sample_plugin.svg?style=flat)](https://depfu.com/github/lolcommits/lolcommits-sample_plugin)
-[![Maintainability](https://api.codeclimate.com/v1/badges/ce34ea41c79820a2fc75/maintainability)](https://codeclimate.com/github/lolcommits/lolcommits-sample_plugin/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/ce34ea41c79820a2fc75/test_coverage)](https://codeclimate.com/github/lolcommits/lolcommits-sample_plugin/test_coverage)
 
 [lolcommits](https://lolcommits.github.io/) takes a snapshot with your
 webcam every time you git commit code, and archives a lolcat style image
@@ -25,7 +23,7 @@ be enabled, you'll see something like this for a capture:
     (it was an image!)
 
 Use this repo to jump-start development on your own plugin. It has
-tests, docs and hooks with useful tools; Travis, CodeClimate, Rdoc etc.
+tests, docs and hooks with useful tools; CI, Rdoc etc.
 
 ## Developing your own plugin
 
@@ -284,10 +282,8 @@ and [pull
 requests](https://github.com/lolcommits/lolcommits-sample_plugin/pulls)
 are welcome on GitHub.
 
-When submitting pull requests, remember to add tests covering any new
-behaviour, and ensure all tests are passing on [Travis
-CI](https://travis-ci.com/lolcommits/lolcommits-sample_plugin). Read the
-[contributing
+When submitting pull requests, remember to add tests covering any new behaviour,
+and ensure all tests are passing on CI. Read the [contributing
 guidelines](https://github.com/lolcommits/lolcommits-sample_plugin/blob/master/CONTRIBUTING.md)
 for more details.
 
@@ -305,9 +301,7 @@ The gem is available as open source under the terms of
 
 ## Links
 
-* [Travis CI](https://travis-ci.com/lolcommits/lolcommits-sample_plugin)
-* [Test Coverage](https://codeclimate.com/github/lolcommits/lolcommits-sample_plugin/test_coverage)
-* [Code Climate](https://codeclimate.com/github/lolcommits/lolcommits-sample_plugin)
+* [CI](https://github.com/lolcommits/lolcommits-sample_plugin/actions/workflows/build.yml)
 * [RDoc](http://rdoc.info/projects/lolcommits/lolcommits-sample_plugin)
 * [Issues](http://github.com/lolcommits/lolcommits-sample_plugin/issues)
 * [Report a bug](http://github.com/lolcommits/lolcommits-sample_plugin/issues/new)
