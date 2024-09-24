@@ -249,8 +249,7 @@ commentary!
 ## Development
 
 Check out this repo and run `bin/setup`, this will install dependencies
-and generate docs. Run `bundle exec rake` to run all tests and generate
-a coverage report.
+and generate docs. Run `bundle exec rake` to run all tests.
 
 You can also run `bin/console` for an interactive prompt that will allow
 you to experiment with the gem code.
