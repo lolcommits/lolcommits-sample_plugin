@@ -293,7 +293,7 @@ The gem is available as open source under the terms of
 ## Links
 
 * [CI](https://github.com/lolcommits/lolcommits-sample_plugin/actions/workflows/ci.yml)
-* [RDoc](http://rdoc.info/projects/lolcommits/lolcommits-sample_plugin)
+* [RDoc](https://rubydoc.info/gems/lolcommits-sample_plugin)
 * [Issues](http://github.com/lolcommits/lolcommits-sample_plugin/issues)
 * [Report a bug](http://github.com/lolcommits/lolcommits-sample_plugin/issues/new)
 * [Gem](http://rubygems.org/gems/lolcommits-sample_plugin)
