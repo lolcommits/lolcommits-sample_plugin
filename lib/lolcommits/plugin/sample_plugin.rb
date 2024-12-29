@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-require 'lolcommits/plugin/base'
+require "lolcommits/plugin/base"
 
 module Lolcommits
   module Plugin
     class SamplePlugin < Base
-
       ##
       # Initializer
       #

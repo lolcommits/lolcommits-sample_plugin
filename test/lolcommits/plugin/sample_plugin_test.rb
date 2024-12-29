@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 describe Lolcommits::Plugin::SamplePlugin do
-
   include Lolcommits::TestHelpers::GitRepo
   include Lolcommits::TestHelpers::FakeIO
 
-  describe 'with a runner' do
+  describe "with a runner" do
     def runner
       # a simple lolcommits runner with an empty configuration Hash
       @runner ||= Lolcommits::Runner.new(
@@ -31,10 +30,10 @@ describe Lolcommits::Plugin::SamplePlugin do
       }
     end
 
-    describe '#run_pre_capture' do
+    describe "#run_pre_capture" do
       before { commit_repo_with_message }
 
-      it 'outputs a message to stdout' do
+      it "outputs a message to stdout" do
         in_repo do
           _(Proc.new { plugin.run_pre_capture }).
             must_output "✨  Say cheese 😁 !\n"
@@ -44,10 +43,10 @@ describe Lolcommits::Plugin::SamplePlugin do
       after { teardown_repo }
     end
 
-    describe '#run_post_capture' do
+    describe "#run_post_capture" do
       before { commit_repo_with_message }
 
-      it 'outputs a message to stdout' do
+      it "outputs a message to stdout" do
         plugin.configuration = valid_enabled_config
         in_repo do
           _(Proc.new { plugin.run_post_capture }).
@@ -58,10 +57,10 @@ describe Lolcommits::Plugin::SamplePlugin do
       after { teardown_repo }
     end
 
-    describe '#run_capture_ready' do
+    describe "#run_capture_ready" do
       before { commit_repo_with_message }
 
-      it 'outputs a message to stdout' do
+      it "outputs a message to stdout" do
         in_repo do
           _(Proc.new { plugin.run_capture_ready }).
             must_output "wow! #{last_commit.sha[0..10]} at /path/to/lolcommit.jpg is your best looking commit yet!\n(it was an image!)\n"
@@ -71,34 +70,34 @@ describe Lolcommits::Plugin::SamplePlugin do
       after { teardown_repo }
     end
 
-    describe '#enabled?' do
-      it 'returns be false by default' do
+    describe "#enabled?" do
+      it "returns be false by default" do
         _(plugin.enabled?).must_equal false
       end
 
-      it 'returns true when configured' do
+      it "returns true when configured" do
         plugin.configuration = valid_enabled_config
         _(plugin.enabled?).must_equal true
       end
     end
 
-    describe 'configuration' do
-      it 'allows plugin options to be configured' do
+    describe "configuration" do
+      it "allows plugin options to be configured" do
         configured_plugin_options = {}
 
-        fake_io_capture(inputs: %w(true false true true 5)) do
+        fake_io_capture(inputs: %w[true false true true 5]) do
           configured_plugin_options = plugin.configure_options!
         end
 
         _(configured_plugin_options).must_equal(valid_enabled_config)
       end
 
-      describe '#valid_configuration?' do
-        it 'returns false without config set' do
+      describe "#valid_configuration?" do
+        it "returns false without config set" do
           _(plugin.valid_configuration?).must_equal(false)
         end
 
-        it 'returns true for a valid configuration' do
+        it "returns true for a valid configuration" do
           plugin.configuration = valid_enabled_config
           _(plugin.valid_configuration?).must_equal true
         end

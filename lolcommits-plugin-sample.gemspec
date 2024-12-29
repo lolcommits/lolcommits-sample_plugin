@@ -5,12 +5,12 @@ require 'lolcommits/sample_plugin/version'
 Gem::Specification.new do |spec|
   spec.name        = "lolcommits-sample_plugin"
   spec.version     = Lolcommits::SamplePlugin::VERSION
-  spec.authors     = ["Matthew Hutchinson"]
-  spec.email       = ["matt@hiddenloop.com"]
-  spec.summary     = %q{Example gem for lolcommits plugin development}
+  spec.authors     = [ "Matthew Hutchinson" ]
+  spec.email       = [ "matt@hiddenloop.com" ]
+  spec.summary     = %q(Example gem for lolcommits plugin development)
   spec.homepage    = "https://github.com/lolcommits/lolcommits-sample_plugin"
   spec.license     = "LGPL-3.0"
-  spec.description = %q{Use this gem as a guide or template to get started with lolcommits plugin development}
+  spec.description = %q(Use this gem as a guide or template to get started with lolcommits plugin development)
 
   spec.metadata = {
     "homepage_uri"      => "https://github.com/lolcommits/lolcommits-sample_plugin",
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = `git ls-files -- {test,features}/*`.split("\n")
   spec.bindir        = "bin"
   spec.executables   = []
-  spec.require_paths = ["lib"]
+  spec.require_paths = [ "lib" ]
 
   spec.required_ruby_version = ">= 3.1"
 
